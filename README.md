@@ -47,3 +47,45 @@ Este repositorio documenta el proceso de refactorización de una página web no 
 *(Insert your screenshots here / Inserta tus capturas aquí)*
 * **Before / Antes:** (Screenshot of WAVE showing errors)
 * **After / Después:** (Screenshot of WAVE showing 0 errors)
+
+## PROMPT USADO PARA EL AGENTE COPILOT EN VSCODE
+
+Rol: Actúa como un Desarrollador Frontend Senior especializado en Accesibilidad Web (WCAG 2.2) y Auditor certificado por la IAAP.
+
+Tarea: Refactoriza completamente el código HTML proporcionado para cumplir estrictamente con los criterios de conformidad de nivel AA (y AAA donde sea posible sin romper el diseño visual) de las pautas WCAG 2.2.
+
+Instrucciones Críticas de Accesibilidad:
+
+Semántica HTML5 (Landmarks): Estructura el documento usando <header>, <main>, <nav>, <footer>, <section> y <article> para definir regiones de la página programáticamente.
+
+Jerarquía de Encabezados: Asegura una estructura lógica estricta (<h1> único, seguido de <h2>, etc.). No saltes niveles.
+
+Formularios Accesibles:
+
+Asocia explícitamente todos los inputs con etiquetas <label> usando for e id.
+
+Añade autocomplete donde aplique.
+
+Si es necesario, añade instrucciones de ayuda con aria-describedby.
+
+Imágenes y Medios: Añade atributos alt descriptivos. Si la imagen es decorativa, usa alt="" o role="presentation".
+
+Interactividad (Teclado y Foco):
+
+Reemplaza elementos no interactivos (como <div class="boton">) por elementos nativos <button> o <a>.
+
+Asegura que el tabindex sea lógico (evita valores positivos mayores a 0).
+
+Garantiza que el foco sea visible (puedes agregar estilos CSS en línea o en bloque para cumplir el criterio de contraste de foco).
+
+Enlaces: Reescribe los textos de los enlaces genéricos (ej: "pincha aquí") para que tengan sentido fuera de contexto.
+
+Tablas: Usa <thead>, <tbody>, <th> con atributos scope="col" o scope="row" para definir las relaciones de las celdas.
+
+ARIA (Accessible Rich Internet Applications): Sigue la primera regla de ARIA: "No uses ARIA si el HTML nativo lo soluciona". Úsalo solo para mejorar estados (ej: aria-expanded, aria-current) o roles faltantes, no para parchar mal HTML.
+
+Contraste (Color): Modifica los estilos CSS (hex codes) para asegurar un ratio de contraste mínimo de 4.5:1 para texto normal y 3:1 para texto grande o componentes de interfaz.
+
+Idioma: Asegura que la etiqueta <html> tenga el atributo lang correcto.
+
+Salida: Entrega únicamente el código HTML/CSS completo y corregido, listo para copiar y pegar. Añade comentarios breves explicando por qué hiciste cambios clave de accesibilidad.

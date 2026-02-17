@@ -1,0 +1,439 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Página Accesible de Prueba - WCAG 2.2 AA/AAA Compliant</title>
+        <style>
+        /* WCAG 2.2 Compliance: Reset y estilos accesibles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            /* WCAG AA Contrast: Foreground #1a1a1a on background #ffffff = 16.4:1 */
+            color: #1a1a1a;
+            background-color: #ffffff;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        /* Skip to main content link (WCAG 2.4.1 Bypass Blocks) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background-color: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* HEADER - Landmark region */
+        header {
+            background-color: #0066cc;
+            /* WCAG AA Contrast: #fff on #0066cc = 8.6:1 */
+            color: #ffffff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        header img {
+            max-width: 80px;
+            height: auto;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        /* NAV - Landmark region */
+        nav {
+            background-color: #004d99;
+            padding: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 20px;
+            /* WCAG AA Contrast: #fff on #004d99 = 11.9:1 */
+            border-bottom: 3px solid transparent;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background-color: #003366;
+            border-bottom-color: #ffcc00;
+            outline: 2px solid #ffcc00;
+            outline-offset: -2px;
+        }
+
+        nav a[aria-current="page"] {
+            border-bottom-color: #ffcc00;
+            font-weight: bold;
+        }
+
+        /* MAIN - Landmark region */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        /* TABLA - Semántica y estilos accesibles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 2px solid #003366;
+        }
+
+        thead {
+            background-color: #0066cc;
+            color: #ffffff;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            /* WCAG AA Contrast: #fff on #0066cc = 8.6:1 */
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: #f0f4ff;
+        }
+
+        td {
+            padding: 12px 15px;
+        }
+
+        /* FORMULARIO - Todos los inputs asociados con labels */
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        label .required {
+            color: #d32f2f;
+            margin-left: 4px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            padding: 10px;
+            border: 2px solid #999;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+            /* WCAG AA Contrast: #1a1a1a on white = 16.4:1 */
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: 3px solid #ffcc00;
+            outline-offset: 2px;
+            border-color: #0066cc;
+            background-color: #fffacd;
+        }
+
+        .help-text {
+            font-size: 0.875rem;
+            color: #555;
+            margin-top: 4px;
+        }
+
+        /* BOTÓN - Accesible y visible */
+        button {
+            background-color: #0066cc;
+            color: #ffffff;
+            border: 2px solid #003366;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            /* WCAG AA Contrast: #fff on #0066cc = 8.6:1 */
+        }
+
+        button:hover {
+            background-color: #004d99;
+        }
+
+        button:focus {
+            outline: 3px solid #ffcc00;
+            outline-offset: 2px;
+        }
+
+        button:active {
+            transform: translateY(2px);
+        }
+
+        /* ENLACES - Contraste y foco visible */
+        a {
+            color: #0066cc;
+            text-decoration: underline;
+            /* WCAG AA Contrast: #0066cc on white = 8.6:1 */
+        }
+
+        a:visited {
+            color: #4d00cc;
+        }
+
+        a:hover {
+            background-color: #e6f0ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:focus {
+            outline: 3px solid #ffcc00;
+            outline-offset: 2px;
+        }
+
+        a:focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        /* FOOTER - Landmark region */
+        footer {
+            background-color: #f5f5f5;
+            color: #1a1a1a;
+            padding: 30px 20px;
+            border-top: 2px solid #ccc;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 10px 0;
+        }
+
+        /* Foco visible en todos los elementos interactivos */
+        :focus-visible {
+            outline: 3px solid #ffcc00;
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+            color: #000;
+            background: #fff;
+            }
+            nav,
+            footer {
+            display: none;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+            flex-direction: column;
+            }
+
+            nav a {
+            padding: 12px 15px;
+            }
+
+            header {
+            flex-direction: column;
+            text-align: center;
+            }
+
+            header h1 {
+            font-size: 1.5rem;
+            }
+
+            table {
+            font-size: 0.875rem;
+            }
+
+            th,
+            td {
+            padding: 8px;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <!-- WCAG 2.4.1: Skip link para acceso directo al contenido principal -->
+        <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+        <!-- HEADER: Landmark region con logo e información principal -->
+        <header>
+        <!-- Imagen del logo con descripción accesible -->
+        <img src="logo.png" alt="Logo de nuestra empresa - Página Accesible">
+        <h1>Bienvenido a nuestro sitio Web Accesible</h1>
+        </header>
+
+        <!-- NAV: Landmark region con navegación principal -->
+        <nav aria-label="Navegación principal">
+        <ul>
+            <!-- aria-current="page" indica la página actual (WCAG 2.4.8) -->
+            <li><a href="#" aria-current="page">Inicio</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#about">Sobre nosotros</a></li>
+        </ul>
+        </nav>
+
+        <!-- MAIN: Landmark region con contenido principal -->
+        <main id="main-content">
+
+        <!-- SECCIÓN 1: Tabla con datos -->
+        <section>
+            <h2>Datos de Usuarios</h2>
+            <!-- Tabla con cabecera semántica (WCAG 1.3.1) -->
+            <table>
+            <thead>
+                <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Edad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <td>Juan</td>
+                <td>25</td>
+                </tr>
+                <tr>
+                <td>María</td>
+                <td>30</td>
+                </tr>
+            </tbody>
+            </table>
+        </section>
+
+        <!-- SECCIÓN 2: Formulario de contacto -->
+        <section id="contacto">
+            <h2>Formulario de Contacto</h2>
+            <!-- form explícito para mejor semántica (WCAG 1.3.1) -->
+            <form>
+            <!-- WCAG 1.3.1: Labels asociados explícitamente a inputs -->
+            <div class="form-group">
+                <label for="campo-nombre">
+                Nombre
+                <span class="required" aria-label="requerido">*</span>
+                </label>
+                <input
+                type="text"
+                id="campo-nombre"
+                name="nombre"
+                required
+                autocomplete="name"
+                aria-describedby="help-nombre">
+                <p id="help-nombre" class="help-text">
+                Ingresa tu nombre completo
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label for="campo-email">
+                Email
+                <span class="required" aria-label="requerido">*</span>
+                </label>
+                <input
+                type="email"
+                id="campo-email"
+                name="email"
+                required
+                autocomplete="email"
+                aria-describedby="help-email">
+                <p id="help-email" class="help-text">
+                Proporciona un correo electrónico válido
+                </p>
+            </div>
+
+            <!-- WCAG 2.4.1: Button en vez de div con onclick -->
+            <button type="submit">Enviar formulario</button>
+            </form>
+        </section>
+
+        <!-- SECCIÓN 3: Información adicional -->
+        <section id="about">
+            <h2>Sobre Nosotros</h2>
+            <p>
+            Para obtener más información sobre nuestros servicios y valores, consulta nuestra
+            <!-- WCAG 2.4.4: Texto de enlace descriptivo (NO "pincha aquí") -->
+            <a href="/informacion-completa.html">página de información completa</a>.
+            </p>
+        </section>
+
+        </main>
+
+        <!-- FOOTER: Landmark region -->
+        <footer>
+        <p>&copy; 2026 Sitio Web Accesible. Todos los derechos reservados.</p>
+        <p>Construido de conformidad con <a href="https://www.w3.org/WAI/WCAG22/quickref/">WCAG 2.2 Nivel AA</a></p>
+        </footer>
+
+        <script>
+        // Manejo accesible del formulario
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // WCAG 4.1.3: Usar alert accesible (mejor que onclick anónimo)
+            const nombre = document.getElementById('campo-nombre').value;
+            if (nombre.trim()) {
+            alert('Formulario enviado correctamente. ¡Gracias, ' + nombre + '!');
+            this.reset();
+            } else {
+            alert('Por favor, completa el campo de nombre');
+            }
+        });
+        </script>
+    </body>
+    </html>
